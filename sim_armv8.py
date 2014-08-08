@@ -22,8 +22,8 @@ class ARMv8(object):
         rd = int(inst[27:], 2)
         rn = int(inst[-10:-5], 2)
         res = bin(int(('0'*20 + inst[10:22]), 2) + int(self.gp_registers[rn[-31:]], 2))[2:]
+
         if len(res) > 32:
-            self.flags[C] = True
             self.gp_registers[rd] = '0'*32 + res[-32:]
         elif len(res) < 32:
             self.gp_registers[rd] = '0'*32 + '0'*(32-len(res)) + res
@@ -41,9 +41,53 @@ class ARMv8(object):
         rn = int(inst[-10:-5], 2)
         res = bin(int(('0'*52 + inst[10:22]), 2) + int(self.gp_registers[rn], 2))[2:]
         if len(res) > 64:
-            self.flags[C] = True
             self.gp_registers[rd] = res[-64:]
         elif len(res) < 64:
             self.gp_registers[rd] = '0'*(64-len(res)) + res
         else
             self.gp_registers[rd] = res
+
+    def adds_immediate_32(inst):
+
+        """
+        Addition(ADDS) routine for immediate addressing mode(32 bit mode).
+        """
+
+        rd = int(inst[27:], 2)
+        rn = int(inst[-10:-5], 2)
+        a, b = int(('0'*20 + inst[10:22]), 2), int(self.gp_registers[rn[-31:]], 2)
+        res = bin(a+b)[2:]
+        
+        if int(res, 2) == 0:
+            self.flags[Z] = True
+        if len(res) > 32:
+            self.flags[V] = True
+            self.gp_registers[rd] = '0'*32 + res[-32:]
+        elif len(res) < 32:
+            self.gp_registers[rd] = '0'*32 + '0'*(32-len(res)) + res
+        else
+            self.gp_registers[rd] = '0'*32 + res
+        if self.gp_registers[rd[0]] == '1':
+            self.flags[N] = True
+
+
+    def adds_immediate_64(inst):
+
+        """
+        Addition(ADDS) routine for immediate addressing mode(64 bit mode).
+        """
+
+        rd = int(inst[27:], 2)
+        rn = int(inst[-10:-5], 2)
+        res = bin(int(('0'*52 + inst[10:22]), 2) + int(self.gp_registers[rn], 2))[2:]
+        if res == 0:
+            self.flags[Z] = True
+        if len(res) > 64:
+            self.flags[V] = True
+            self.gp_registers[rd] = res[-64:]
+        elif len(res) < 64:
+            self.gp_registers[rd] = '0'*(64-len(res)) + res
+        else
+            self.gp_registers[rd] = res
+        if self.gp_registers[rd[0]] == '1':
+            self.flags[N] = True
