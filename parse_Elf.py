@@ -7,7 +7,7 @@ def parse_elf(elf_binary):
 
     Input
     -----
-    ELF Binary of the ARMv8 architecture passed as parameter.
+    Name of the ELF Binary file of the ARMv8 architecture passed as parameter.
 
     Output
     ------
@@ -30,7 +30,7 @@ def is_Little_Endian(elf_binary):
 
     Input
     -----
-    ELF Binary of the ARMv8 architecture passed as parameter.
+    Name of the ELF Binary file of the ARMv8 architecture passed as parameter.
 
     Output
     ------
