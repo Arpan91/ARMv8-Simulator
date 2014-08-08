@@ -7,7 +7,7 @@ def parse_elf(elf_binary):
 
     Input
     -----
-    Name of the ELF Binary file of the ARMv8 architecture passed as parameter.
+    Stream ELF Binary file of the ARMv8 architecture passed as parameter.
 
     Output
     ------
@@ -16,8 +16,7 @@ def parse_elf(elf_binary):
     Return type: String
     """
 
-    file_stream = open(elf_binary, "rb")
-    elf_object = ELF.ELFFile(file_stream)
+    elf_object = ELF.ELFFile(elf_binary)
     text_section_object = elf_object.get_section_by_name(".text")
     data = text_section_object.data()
     file_stream.close()
@@ -30,7 +29,7 @@ def is_Little_Endian(elf_binary):
 
     Input
     -----
-    Name of the ELF Binary file of the ARMv8 architecture passed as parameter.
+    Stream of the ELF Binary file of the ARMv8 architecture passed as parameter.
 
     Output
     ------

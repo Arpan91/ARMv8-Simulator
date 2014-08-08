@@ -1,6 +1,6 @@
 import parse_Elf
 
-def get_instructions(elf_binary stream):
+def get_instructions(elf_binary):
 
     """
     Function to fetch instructions from the contents of .text section of ELF binary.
