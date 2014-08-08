@@ -1,6 +1,6 @@
 import parse_Elf
 
-def get_instructions(elf_binary):
+def get_instructions(elf_binary stream):
 
     """
     Function to fetch instructions from the contents of .text section of ELF binary.
@@ -8,7 +8,7 @@ def get_instructions(elf_binary):
     Input
     -----
 
-    Name of the ELF Binary of the ARMv8 architecture passed as parameter.
+    Stream of the ELF Binary file of the ARMv8 architecture passed as parameter.
 
     Output
     ------
