@@ -13,7 +13,7 @@ def parse_elf(elf_binary):
     ------
     Corresponding section data of the ELF Binary.
 
-    Return type: Object of sections class
+    Return type: String
     """
 
     file_stream = open(elf_binary, "rb")
